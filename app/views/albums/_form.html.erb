@@ -1,0 +1,33 @@
+<% if album.errors.full_messages  %>
+<% album.errors.full_messages.each do |msg|  %>
+  <p style ="color:#ff7f7f"> <%= msg %> </p>
+<% end end %>
+
+<form action="<%= album.persisted? ? album_url(album.id) : albums_url %>" method="post">
+  <% if album.persisted? %>
+    <input type="hidden" name="_method" value="PATCH">
+  <% end %>
+<%= auth_token %>
+
+<label for="title">Album Title</label>
+ <input id = "title" type="text" name="album[title]"
+        value = "<%= album.persisted? ? album.title : "" %>">  <br><br>
+
+<label for="band">Band</label>
+<select id="band" name="album[band_id]">
+  <option disabled <%= album.band_id ? "" : "selected"%>>-- Please Select --</option>
+  <% Band.all.each do |band| %>
+    <option value= <%= band.id %>
+      <%= album.band_id == band.id ? "selected" : ""%>>
+      <%= band.name %></option>
+  <% end %>
+</select><br><br>
+
+<label for="live">Live album?</label>
+  <input id="live" type="radio" name="album[live_album]" value="true"
+        <%= album.live_album ? "checked" : "" %> >Yes
+  <input id="live" type="radio" name="album[live_album]" value="false"
+        <%= album.live_album ? "" : "checked" %>  >No <br><br>
+
+
+<input type="submit" value="Submit">

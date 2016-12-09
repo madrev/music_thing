@@ -1,0 +1,24 @@
+<h3> Track details </h3>
+
+<p> Title: <%= @track.name %> </p>
+<p> Band: <%= link_to @track.band.name, band_url(@track.band) %> </p>
+<p> Album: <%= link_to @track.album.title, album_url(@track.album_id) %> </p>
+<p> <%= @track.bonus ? "This is a bonus track." : "" %> </p>
+
+<p> Lyrics </p>
+<p> <%= ugly_lyrics(@track.lyrics) %> </p>
+
+
+<%= link_to 'Edit track', edit_track_url(@track) %>
+&nbsp;
+&nbsp;
+<%= link_to 'Delete track', track_url(@track), method: :delete %>
+
+<h3> Notes </h3>
+<% @track.notes.each do |note| %>
+<%= render 'notes/note', note: note %><br><br>
+<% end %>
+
+
+
+<%= render 'notes/form', t_id: @track.id %>

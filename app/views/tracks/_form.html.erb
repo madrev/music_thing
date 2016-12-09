@@ -1,0 +1,38 @@
+<% if track.errors.full_messages  %>
+<% track.errors.full_messages.each do |msg|  %>
+  <p style ="color:#ff7f7f"> <%= msg %> </p>
+<% end end %>
+
+<form action="<%= track.persisted? ? track_url(track.id) : tracks_url %>" method="post">
+  <% if track.persisted? %>
+    <input type="hidden" name="_method" value="PATCH">
+  <% end %>
+<%= auth_token %>
+
+<label for="name">Track Name</label>
+ <input id = "name" type="text" name="track[name]"
+        value = "<%= track.persisted? ? track.name : "" %>">  <br><br>
+
+<label for="album">Album</label>
+<select id="album" name="track[album_id]">
+  <option disabled <%= track.album_id ? "" : "selected"%>>-- Please Select --</option>
+  <% Album.all.each do |album| %>
+    <option value= <%= album.id %>
+      <%= track.album_id == album.id ? "selected" : ""%>>
+      <%= album.title %></option>
+  <% end %>
+</select><br><br>
+
+
+<label for="bonus">Bonus track?</label>
+<input id="bonus" type="radio" name="track[bonus]" value="true"
+      <%= track.bonus ? "checked" : "" %> >Yes
+<input id="bonus" type="radio" name="track[bonus]" value="false"
+      <%= track.bonus ? "" : "checked" %>  >No <br><br>
+
+<label for="lyrics">Lyrics:</label><br>
+<textarea name="track[lyrics]" rows="8" cols="80"><%= track.lyrics ? track.lyrics : "" %></textarea><br><br>
+
+
+<input type="submit" value="Submit">
+</form>

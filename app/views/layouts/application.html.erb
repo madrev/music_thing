@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>MusicApp</title>
+  <%= stylesheet_link_tag    'application', media: 'all' %>
+  <%= javascript_include_tag 'application' %>
+  <%= csrf_meta_tags %>
+  <style>
+    body {background-color: grey;}
+    h2   {font-family: courier; color: purple;}
+    h3   {font-family: courier; color: purple;}
+    h1   {font-family: courier; color: purple;}
+    p    {font-family: courier; color: white;}
+    label  {font-family: courier; color: white;}
+    form  {font-family: courier; color: white;}
+    a    {font-family: courier; color: white;}
+    body {padding-left: 400px;}
+</style>
+</head>
+<body>
+<header>
+  <h2> <%= link_to 'super cool music app', bands_url %>
+  <% if current_user %>
+    <%= button_to 'Log out', session_url, method: :delete %>
+  <% else %>
+    <%= button_to 'Log in', new_session_url, method: :get %>
+  <% end %> </h2>
+</header>
+<br><br><br>
+
+
+<%= yield %>
+
+</body>
+</html>

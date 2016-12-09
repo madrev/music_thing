@@ -1,0 +1,7 @@
+<p> Write a note </p>
+<form action="<%= notes_url %>" method="post">
+<%= auth_token %>
+<textarea name="note[text]" rows="8" cols="80">  </textarea>
+<input type="hidden" name="note[track_id]" value="<%= t_id %>"></input><br><br>
+<input type="submit" value="Submit"></input>
+</form>
